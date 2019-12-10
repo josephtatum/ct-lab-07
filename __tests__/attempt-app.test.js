@@ -20,11 +20,12 @@ describe('attempt app routes', () => {
   });
 
   it('creates an attempt', () => {
+    const date = new Date;
     return request(app)
       .post('/api/v1/attempts')
       .send({
         recipeId: '123',
-        dateOfEvent: '06/28/1991',
+        dateOfEvent: date,
         notes: ['I am a note'],
         rating: 2
       })
@@ -32,7 +33,7 @@ describe('attempt app routes', () => {
         expect(res.body).toEqual({
           __v: 0,
           _id: expect.any(String),
-          dateOfEvent: '1991-06-28T07:00:00.000Z',
+          dateOfEvent: date.toISOString(),
           notes: ['I am a note'],
           rating: 2,
           recipeId: '123',
@@ -41,9 +42,10 @@ describe('attempt app routes', () => {
   });
 
   it('gets an attempt by id', async() => {
+    const date = new Date;
     const attempt = await Attempt.create({
       recipeId: '123',
-      dateOfEvent: '06/28/1991',
+      dateOfEvent: date,
       notes: ['I am a note'],
       rating: 2
     });
@@ -55,7 +57,7 @@ describe('attempt app routes', () => {
           __v: 0,
           _id: attempt._id.toString(),
           recipeId: '123',
-          dateOfEvent: '1991-06-28T07:00:00.000Z',
+          dateOfEvent: date.toISOString(),
           notes: ['I am a note'],
           rating: 2
         });
@@ -63,10 +65,11 @@ describe('attempt app routes', () => {
   });
 
   it('gets all attempts', async() => {
+    const date = new Date;
     const attempts = await Attempt.create([
-      { dateOfEvent: '06/28/1991', recipeId: '121' },
-      { dateOfEvent: '06/28/1991', recipeId: '122' },
-      { dateOfEvent: '06/28/1991', recipeId: '123' }
+      { dateOfEvent: date, recipeId: '121' },
+      { dateOfEvent: date, recipeId: '122' },
+      { dateOfEvent: date, recipeId: '123' }
     ]);
 
     return request(app)
@@ -74,17 +77,17 @@ describe('attempt app routes', () => {
       .then(res => {
         attempts.forEach(attempt => {
           expect(res.body).toContainEqual({
-            _id: attempt._id.toString(),
-            name: attempt.name
+            _id: attempt._id.toString()
           });
         });
       });
   });
 
   it('updates a recipe by id', async() => {
+    const date = new Date;
     const attempt = await Attempt.create({
       recipeId: '123',
-      dateOfEvent: '06/28/1991',
+      dateOfEvent: date,
       notes: ['I am a note'],
       rating: 2
     });
@@ -96,7 +99,7 @@ describe('attempt app routes', () => {
         expect(res.body).toEqual({
           _id: attempt._id.toString(),
           recipeId: '1234',
-          dateOfEvent: '1991-06-28T07:00:00.000Z',
+          dateOfEvent: date.toISOString(),
           notes: ['I am a note'],
           rating: 2,
           __v: 0
@@ -105,9 +108,10 @@ describe('attempt app routes', () => {
   });
 
   it('deletes a recipe by id', async() => {
+    const date = new Date;
     const attempt = await Attempt.create({
       recipeId: '123',
-      dateOfEvent: '06/28/1991',
+      dateOfEvent: date,
       notes: ['I am a note'],
       rating: 2
     });
@@ -118,7 +122,7 @@ describe('attempt app routes', () => {
         expect(res.body).toEqual({
           _id: attempt._id.toString(),
           recipeId: '123',
-          dateOfEvent: '1991-06-28T07:00:00.000Z',
+          dateOfEvent: date.toISOString(),
           notes: ['I am a note'],
           rating: 2,
           __v: 0

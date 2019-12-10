@@ -6,7 +6,7 @@ const connect = require('../lib/utils/connect');
 const mongoose = require('mongoose');
 const Recipe = require('../lib/models/Recipe');
 
-describe('app routes', () => {
+describe('recipe app routes', () => {
   beforeAll(() => {
     connect();
   });
