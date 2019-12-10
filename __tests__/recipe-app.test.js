@@ -57,7 +57,7 @@ describe('app routes', () => {
       });
   });
 
-  it('gets a recipe by id', async () => {
+  it('gets a recipe by id', async() => {
     const recipe = await Recipe.create({
       name: 'cookies',
       directions: [
