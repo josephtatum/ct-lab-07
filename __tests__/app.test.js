@@ -29,7 +29,12 @@ describe('app routes', () => {
           'mix ingredients',
           'put dough on cookie sheet',
           'bake for 10 minutes'
-        ]
+        ],
+        ingredients: [{
+          amount: '4',
+          name: 'Cardamom',
+          measurement: 'cup'
+        }]
       })
       .then(res => {
         expect(res.body).toEqual({
@@ -41,6 +46,12 @@ describe('app routes', () => {
             'put dough on cookie sheet',
             'bake for 10 minutes'
           ],
+          ingredients: [{
+            _id: res.body.ingredients[0]._id,
+            amount: '4',
+            name: 'Cardamom',
+            measurement: 'cup'
+          }],
           __v: 0
         });
       });
@@ -55,25 +66,36 @@ describe('app routes', () => {
         'put dough on cookie sheet',
         'bake for 10 minutes'
       ],
+      ingredients: [{
+        amount: '4',
+        name: 'Cardamom',
+        measurement: 'cup'
+      }]
     });
 
     return request(app)
       .get(`/api/v1/recipes/${recipe._id}`)
       .then(res => {
         expect(res.body).toEqual({
-          '__v': 0,
-          '_id': recipe._id.toString(),
-          'directions': ['preheat oven to 375', 'mix ingredients', 'put dough on cookie sheet', 'bake for 10 minutes'],
-          'name': 'cookies'
+          __v: 0,
+          _id: recipe._id.toString(),
+          directions: ['preheat oven to 375', 'mix ingredients', 'put dough on cookie sheet', 'bake for 10 minutes'],
+          name: 'cookies',
+          ingredients: [{
+            _id: res.body.ingredients[0]._id,
+            amount: '4',
+            name: 'Cardamom',
+            measurement: 'cup'
+          }]
         });
       });
   });
 
   it('gets all recipes', async() => {
     const recipes = await Recipe.create([
-      { name: 'cookies', directions: [] },
-      { name: 'cake', directions: [] },
-      { name: 'pie', directions: [] }
+      { name: 'cookies', directions: [], ingredients: [] },
+      { name: 'cake', directions: [], ingredients: [] },
+      { name: 'pie', directions: [], ingredients: [] }
     ]);
 
     return request(app)
@@ -97,6 +119,11 @@ describe('app routes', () => {
         'put dough on cookie sheet',
         'bake for 10 minutes'
       ],
+      ingredients: [{
+        amount: '4',
+        name: 'Cardamom',
+        measurement: 'cup'
+      }]
     });
 
     return request(app)
@@ -112,6 +139,12 @@ describe('app routes', () => {
             'put dough on cookie sheet',
             'bake for 10 minutes'
           ],
+          ingredients: [{
+            _id: res.body.ingredients[0]._id,
+            amount: '4',
+            name: 'Cardamom',
+            measurement: 'cup'
+          }],
           __v: 0
         });
       });
@@ -126,6 +159,11 @@ describe('app routes', () => {
         'put dough on cookie sheet',
         'bake for 10 minutes'
       ],
+      ingredients: [{
+        amount: '4',
+        name: 'Cardamom',
+        measurement: 'cup'
+      }]
     });
 
     return request(app)
@@ -140,6 +178,12 @@ describe('app routes', () => {
             'put dough on cookie sheet',
             'bake for 10 minutes'
           ],
+          ingredients: [{
+            _id: res.body.ingredients[0]._id,
+            amount: '4',
+            name: 'Cardamom',
+            measurement: 'cup'
+          }],
           __v: 0
         });
       });
